@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Camps;
+use App\Models\Camp;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
+use App\Http\Requests\User\Checkout\Store; // panggil validasi khusus checkout
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -24,8 +25,15 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Camps $camp)
+    public function create(Camp $camp, Request $request)
     {
+        // validasi course checkout
+        if ($camp->isRegistered) {
+            // jika sudah checkout kursus yang sama/ada lempar ke dashboard
+            $request->session()->flash('error', "You already registered on {$camp->title} camp");
+            return redirect(route('dashboard'));
+        }
+
         $camps = [
             'camp' => $camp
         ];
@@ -38,9 +46,9 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Camps $camp)
+    public function store(Store $request, Camp $camp)
     {
-        // return $request->all();
+        dd($request->all());
         // mapping request data
         $data = $request->all();
         $data['user_id'] = Auth::id();
