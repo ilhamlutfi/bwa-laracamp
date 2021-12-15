@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 class CreateCampBenefitsTable extends Migration
 {
     /**
@@ -22,11 +21,11 @@ class CreateCampBenefitsTable extends Migration
             // cara relasi 2
             $table->foreignId('camp_id')->constrained();
 
+            // cara relasi 1
+            // $table->foreign('camp_id')->references('id')->on('camp')->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
 
-            // cara relasi 1
-            // $table->foreign('camp_id')->references('id')->on('camps')->onDelete('cascade');
         });
     }
 

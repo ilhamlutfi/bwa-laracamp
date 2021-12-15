@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Camps;
+use App\Models\Camp;
 
 class CampTableSeeder extends Seeder
 {
@@ -38,6 +38,6 @@ class CampTableSeeder extends Seeder
         // }
 
         // cara seed 2
-        Camps::insert($camps);
+        Camp::insert($camps);
     }
 }

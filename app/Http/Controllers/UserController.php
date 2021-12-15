@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail; // panggil suport Mail::
+use App\Mail\User\AfterRegister; // panggil function AfterRegister untuk email
 
 class UserController extends Controller
 {
@@ -20,6 +22,7 @@ class UserController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
+    // handle login or register socialite drive google
     public function handleProviderCallback()
     {
         // ambil data user login dgn google
@@ -34,7 +37,17 @@ class UserController extends Controller
         ];
 
         // firstOrCreate digunakan untuk menambah data baru jika email tidak ada di db
-        $user = User::firstOrCreate(['email' => $data['email']], $data);
+        // $user = User::firstOrCreate(['email' => $data['email']], $data);
+
+        // check email sudah registrasi atau belum di tabel user
+        $user = User::whereEmail($data['email'])->first();
+        
+        if (!$user) {
+            // kalau email tidak ada registrasikan create ke db
+            $user = User::create($data);
+            // kirim email dengan function AfterRegister
+            Mail::to($user->email)->send(new AfterRegister($user));
+        }
 
         // inisiasi user yang login
         Auth::login($user, true);

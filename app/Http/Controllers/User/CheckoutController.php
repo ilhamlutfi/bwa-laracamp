@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Checkout\Store; // panggil validasi khusus checkout
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Checkout\AfterCheckout;
 
 class CheckoutController extends Controller
 {
@@ -48,7 +50,6 @@ class CheckoutController extends Controller
      */
     public function store(Store $request, Camp $camp)
     {
-        dd($request->all());
         // mapping request data
         $data = $request->all();
         $data['user_id'] = Auth::id();
@@ -64,7 +65,10 @@ class CheckoutController extends Controller
         // create data ke tbl checkout
         $checkout = Checkout::create($data);
 
-        return redirect(route('checkout-success'));
+        // sending email after checkout
+        Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
+
+        return redirect(route('checkout.success'));
     }
 
     /**

@@ -18,6 +18,7 @@ class Camp extends Model
     {
         // check apakah ada yg login atau tidak
         if (!Auth::check()) {
+            // jika belum login kembalikan
             return false;
         }
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\User\CheckoutController;
+use App\Models\Checkout;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
     // routes checkout
-    Route::get('checkout/success', [CheckoutController::class, 'success'])->name('checkout-success');
+    Route::get('checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     // {camp:slug} untuk ambil slug dari tbl camp
-    Route::get('checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout-create');
+    Route::get('checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
     // {camp} untuk ambil id dari tbl camp
-    Route::post('checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout-store');
+    Route::post('checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
 // Route::get('/dashboard', function () {
