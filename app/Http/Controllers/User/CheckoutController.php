@@ -33,7 +33,7 @@ class CheckoutController extends Controller
         if ($camp->isRegistered) {
             // jika sudah checkout kursus yang sama/ada lempar ke dashboard
             $request->session()->flash('error', "You already registered on {$camp->title} camp");
-            return redirect(route('dashboard'));
+            return redirect(route('user.dashboard'));
         }
 
         $camps = [

@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Checkout;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function dashboard()
     {
-        $data = [
-            // ambil data checkout berdasarkan id user login relasi ke tabel camp id
-            'checkouts' => Checkout::with('Camp')->whereUserId(Auth::id())->get()
-        ];
-
-        return view('user.dashboard', $data);
+        // check role yang login admin atau user biasa
+        switch (Auth::user()->is_admin) {
+            case true:
+                return redirect(route('admin.dashboard'));
+                break;
+            
+            default:
+                return redirect(route('user.dashboard'));
+                break;
+        }
     }
 }
