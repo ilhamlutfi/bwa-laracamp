@@ -29,12 +29,12 @@ Route::middleware('auth')->group(function () {
     // dashboard
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
-    // user dashboard
+    // routes khusus user dashboard
     Route::prefix('user/dashboard')->namespace('User')->name('user.')->middleware('EnsureUserRole:user')->group(function() {
         Route::get('/', [UserDashboard::class, 'index'])->name('dashboard');
     });
     
-    // admin dashboard
+    // routes khusus admin dashboard
     Route::prefix('admin/dashboard')->namespace('Admin')->name('admin.')->middleware('EnsureUserRole:admin')->group(function() {
         Route::get('/', [AdminDashboard::class, 'index'])->name('dashboard');
 
