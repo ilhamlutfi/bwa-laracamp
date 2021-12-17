@@ -62,40 +62,31 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="mb-4">
-                                    <label class="form-label">Card Number</label>
-                                    <input type="number" name="card_number" class="form-control @error('card_number') is-invalid @enderror" value="{{ old('card_number') }}" required>
 
-                                    @error('card_number')
+                                <div class="mb-4">
+                                    <label class="form-label">Phone</label>
+                                    <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror"
+                                        value="{{ old('phone') }}" required>
+                                
+                                    @error('phone')
                                     <div class="invalid-feedback">
                                         <p class="text-danger">{{ $message }}</p>
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="mb-5">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-12">
-                                            <label class="form-label">Expired</label>
-                                            <input type="month" name="expired" class="form-control @error('expired') is-invalid @enderror" value="{{ old('expired') }}" required>
 
-                                            @error('expired')
-                                            <div class="invalid-feedback">
-                                                <p class="text-danger">{{ $message }}</p>
-                                            </div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-lg-6 col-12">
-                                            <label class="form-label">CVC</label>
-                                            <input type="number" name="cvc" class="form-control @error('cvc') is-invalid @enderror" maxlength="5" value="{{ old('cvc') }}" required>
-
-                                            @error('cvc')
-                                            <div class="invalid-feedback">
-                                                <p class="text-danger">{{ $message }}</p>
-                                            </div>
-                                            @enderror
-                                        </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" name="address" class="form-control @error('address') is-invalid @enderror"
+                                        value="{{ old('address') }}" required>
+                                
+                                    @error('address')
+                                    <div class="invalid-feedback">
+                                        <p class="text-danger">{{ $message }}</p>
                                     </div>
+                                    @enderror
                                 </div>
+                                
                                 <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
                                 <p class="text-center subheader mt-4">
                                     <img src="{{ asset('images/ic_secure.svg') }}" alt=""> Your payment is secure and encrypted.
